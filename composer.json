@@ -1,61 +1,62 @@
 {
-  "name": "libaro/shipmenttracker",
-  "version": "0.0.1",
-  "description": "Shipment Tracker",
-  "keywords": [
-    "libaro",
-    "laravel",
-    "shipment",
-    "tracking"
-  ],
-  "homepage": "https://github.com/libaro-io/ShipmentTracker",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Libaro",
-      "email": "info@libaro.be",
-      "role": "Developer"
-    }
-  ],
-  "require": {
-    "php": "^7.4|^8.0"
-  },
-  "require-dev": {
-    "orchestra/testbench": "^v7.5.0",
-      "phpstan/extension-installer": "^1.1",
-      "phpstan/phpstan-deprecation-rules": "^1.0",
-      "phpstan/phpstan-phpunit": "^1.0",
-      "pestphp/pest": "^1.10",
-      "pestphp/pest-plugin-laravel": "^1.1"
-  },
-  "autoload": {
-    "psr-4": {
-      "Libaro\\ShipmentTracker\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Libaro\\ShipmentTracker\\Tests\\": "tests"
-    }
-  },
-  "scripts": {
-    "test": "vendor/bin/pest",
-    "test-coverage": "vendor/bin/pest coverage"
-  },
-  "config": {
-    "sort-packages": true,
-    "allow-plugins": {
-      "phpstan/extension-installer": true,
-      "pestphp/pest-plugin": true
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Libaro\\ShipmentTracker\\ShipmentTrackerServiceProvider"
-      ]
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "name": "libaro/shipmenttracker",
+    "version": "0.0.1",
+    "description": "Shipment Tracker",
+    "keywords": [
+        "libaro",
+        "laravel",
+        "shipment",
+        "tracking"
+    ],
+    "homepage": "https://github.com/libaro-io/ShipmentTracker",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Libaro",
+            "email": "info@libaro.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^v7.5.0",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "pestphp/pest": "^1.10",
+        "pestphp/pest-plugin-laravel": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Libaro\\ShipmentTracker\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Libaro\\ShipmentTracker\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest coverage"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true,
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Libaro\\ShipmentTracker\\ShipmentTrackerServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
