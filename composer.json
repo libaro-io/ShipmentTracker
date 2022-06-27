@@ -21,7 +21,10 @@
     "php": "^7.4|^8.0"
   },
   "require-dev": {
-    "orchestra/testbench": "^v7.5.0"
+    "orchestra/testbench": "^v7.5.0",
+      "phpstan/extension-installer": "^1.1",
+      "phpstan/phpstan-deprecation-rules": "^1.0",
+      "phpstan/phpstan-phpunit": "^1.0"
   },
   "autoload": {
     "psr-4": {
@@ -38,7 +41,10 @@
     "test-coverage": "vendor/bin/pest coverage"
   },
   "config": {
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "phpstan/extension-installer": true
+    }
   },
   "extra": {
     "laravel": {
