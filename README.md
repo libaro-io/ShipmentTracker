@@ -1,9 +1,9 @@
 # :package_description
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/Libaro/ShipmentTracker.svg?style=flat-square)](https://packagist.org/packages/Libaro/ShipmentTracker)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/libaro/shipmenttracker.svg?style=flat-square)](https://packagist.org/packages/libaro/shipmenttracker)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/libaro-io/ShipmentTracker/run-tests?label=tests)](https://github.com/libaro-io/ShipmentTracker/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/libaro-io/ShipmentTracker/Check%20&%20fix%20styling?label=code%20style)](https://github.com/libaro-io/ShipmentTracker/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/Libaro/ShipmentTracker.svg?style=flat-square)](https://packagist.org/packages/Libaro/ShipmentTracker)
+[![Total Downloads](https://img.shields.io/packagist/dt/libaro/shipmenttracker.svg?style=flat-square)](https://packagist.org/packages/libaro/shipmenttracker)
 
 # Package Description
 // TODO: Add Package Description
@@ -14,7 +14,7 @@
 You can install the package via composer:
 
 ```bash
-composer require Libaro/ShipmentTracker
+composer require libaro/shipmenttracker
 ```
 
 You can publish and run the migrations with:
