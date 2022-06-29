@@ -2,10 +2,10 @@
 
 use Libaro\ShipmentTracker\Models\Status;
 
-it('can be created', function() {
-   $status = new Status();
+it('can be created', function () {
+    $status = new Status();
 
-   expect($status)->toBeInstanceOf(Status::class);
+    expect($status)->toBeInstanceOf(Status::class);
 });
 
 it('can have a provider', function () {

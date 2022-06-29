@@ -2,9 +2,9 @@
 
 namespace Libaro\ShipmentTracker\Adapters;
 
-use Libaro\ShipmentTracker\Models\Status;
-use Libaro\ShipmentTracker\Models\Provider;
 use Libaro\ShipmentTracker\Contracts\ShipmentAdapter;
+use Libaro\ShipmentTracker\Models\Provider;
+use Libaro\ShipmentTracker\Models\Status;
 
 class PostNLAdapter implements ShipmentAdapter
 {

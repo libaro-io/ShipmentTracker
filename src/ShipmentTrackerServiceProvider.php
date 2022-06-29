@@ -14,7 +14,7 @@ class ShipmentTrackerServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->bind('shipment', function($app) {
+        $this->app->bind('shipment', function ($app) {
             return new ShipmentService();
         });
     }

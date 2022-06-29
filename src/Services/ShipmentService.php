@@ -2,11 +2,10 @@
 
 namespace Libaro\ShipmentTracker\Services;
 
-use Libaro\ShipmentTracker\Models\Status;
-use Libaro\ShipmentTracker\Models\Provider;
 use Libaro\ShipmentTracker\Exceptions\AdapterNotFoundException;
 use Libaro\ShipmentTracker\Exceptions\ProviderNotFoundException;
-
+use Libaro\ShipmentTracker\Models\Provider;
+use Libaro\ShipmentTracker\Models\Status;
 
 class ShipmentService
 {
@@ -32,7 +31,7 @@ class ShipmentService
 
         $provider = ProviderService::getProviderByBarcodeTag($tag);
 
-        if(!$provider) {
+        if (! $provider) {
             throw new ProviderNotFoundException("No provider found for barcode beginning with $tag");
         }
 
@@ -44,10 +43,10 @@ class ShipmentService
      */
     private function getAdapter(Provider $provider)
     {
-        if(!class_exists($provider->adapter)) {
+        if (! class_exists($provider->adapter)) {
             throw new AdapterNotFoundException("No adapter found for provider $provider->label ($provider->adapter)");
         }
 
-        return new $provider->adapter;
+        return new $provider->adapter();
     }
 }
