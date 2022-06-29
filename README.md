@@ -6,7 +6,9 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/libaro/shipmenttracker.svg?style=flat-square)](https://packagist.org/packages/libaro/shipmenttracker)
 
 ## Package Description
-// TODO: Add Package Description
+A package to easily track the status of you parcel. 
+With support for multiple providers (BPost, PostNL).
+A provider can be added by creating an adapter for the new provider.
 
 
 ## Installation
@@ -15,13 +17,6 @@ You can install the package via composer:
 
 ```bash
 composer require libaro/shipmenttracker
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="shipment-tracker-migrations"
-php artisan migrate
 ```
 
 You can publish the config file with:
@@ -34,11 +29,35 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'providers' => [
+        [
+            'name' => 'bpost',
+            'label' => 'BPost',
+            'adapter' => \Libaro\ShipmentTracker\Adapters\BPostAdapter::class,
+            'barcode_tag' => 3232,
+            'credentials' => [
+                'username' => env('SHIPMENT_TRACKER_BPOST_USERNAME'),
+                'password' => env('SHIPMENT_TRACKER_BPOST_PASSWORD'),
+            ],
+        ],
+        [
+            'name' => 'post_nl',
+            'label' => 'PostNL',
+            'adapter' => \Libaro\ShipmentTracker\Adapters\PostNLAdapter::class,
+            'barcode_tag' => 0,
+            'credentials' => [
+            ],
+        ],
+    ],
 ];
 ```
 
 ## Usage
-TODO: Add Usage Documentation
+You can use the `Shipment` facade to track your parcel.
+
+```php
+Shipment::track('5995390550944994')
+```
 
 ## Testing
 
