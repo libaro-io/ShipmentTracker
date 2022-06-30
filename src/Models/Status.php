@@ -3,7 +3,6 @@
 namespace Libaro\ShipmentTracker\Models;
 
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Date;
 
 /**
  * @property string $provider

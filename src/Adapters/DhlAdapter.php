@@ -5,12 +5,11 @@ namespace Libaro\ShipmentTracker\Adapters;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Date;
-use Psr\Http\Message\ResponseInterface;
 use Libaro\ShipmentTracker\Contracts\ShipmentAdapter;
 use Libaro\ShipmentTracker\Exceptions\TrackException;
 use Libaro\ShipmentTracker\Models\Provider;
 use Libaro\ShipmentTracker\Models\Status;
+use Psr\Http\Message\ResponseInterface;
 
 class DhlAdapter implements ShipmentAdapter
 {
