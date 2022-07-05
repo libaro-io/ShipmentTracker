@@ -60,7 +60,7 @@ class DhlAdapter implements ShipmentAdapter
             ->service($shipment->service)
             ->updated($this->convertToDate($shipment->status->timestamp))
             ->status($shipment->status->status)
-            ->info($shipment->status->description);
+            ->info(optional($shipment->status)->description ?? '');
     }
 
     protected function convertToDate(string $date): Carbon
