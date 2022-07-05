@@ -3,6 +3,7 @@
 return [
     'providers' => [
         [
+            'enabled' => true,
             'name' => 'bpost',
             'label' => 'BPost',
             'adapter' => \Libaro\ShipmentTracker\Adapters\BPostAdapter::class,
@@ -13,6 +14,7 @@ return [
             ],
         ],
         [
+            'enabled' => true,
             'name' => 'post_nl',
             'label' => 'PostNL',
             'adapter' => \Libaro\ShipmentTracker\Adapters\PostNLAdapter::class,
@@ -21,6 +23,7 @@ return [
             ],
         ],
         [
+            'enabled' => true,
             'name' => 'dhl',
             'label' => 'DHL',
             'adapter' => \Libaro\ShipmentTracker\Adapters\DhlAdapter::class,

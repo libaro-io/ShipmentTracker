@@ -8,7 +8,7 @@ class ProviderService
 {
     public static function getProviderByBarcodeTag(int $tag): ?Provider
     {
-        $providers = config('shipment-tracker.providers');
+        $providers = self::getProviders();
 
         $providerObject = null;
 
@@ -29,5 +29,14 @@ class ProviderService
             ->adapter($provider['adapter'])
             ->barcodeTag($provider['barcode_tag'])
             ->credentials($provider['credentials']);
+    }
+
+    public static function getProviders()
+    {
+        $providers = config('shipment-tracker.providers');
+
+        return array_filter($providers, function($provider) {
+           return $provider['enabled'];
+        });
     }
 }
