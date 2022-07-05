@@ -6,9 +6,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\App;
 use Libaro\ShipmentTracker\Contracts\ShipmentAdapter;
+use Libaro\ShipmentTracker\Exceptions\TrackException;
 use Libaro\ShipmentTracker\Models\Provider;
 use Libaro\ShipmentTracker\Models\Status;
-use Libaro\ShipmentTracker\Exceptions\TrackException;
 
 class PostNLAdapter implements ShipmentAdapter
 {
