@@ -6,10 +6,9 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/libaro/shipmenttracker.svg?style=flat-square)](https://packagist.org/packages/libaro/shipmenttracker)
 
 ## Package Description
-A package to easily track the status of you parcel. 
-With support for multiple providers (BPost, PostNL).
-A provider can be added by creating an adapter for the new provider.
 
+A package to easily track the status of you parcel. With support for multiple providers (BPost, PostNL and DHL). A
+provider can be added by creating an adapter for the new provider.
 
 ## Installation
 
@@ -44,8 +43,18 @@ return [
             'name' => 'post_nl',
             'label' => 'PostNL',
             'adapter' => \Libaro\ShipmentTracker\Adapters\PostNLAdapter::class,
-            'barcode_tag' => 0,
+            'barcode_tag' => null,
             'credentials' => [
+            ],
+        ],
+        [
+            'name' => 'dhl',
+            'label' => 'DHL',
+            'adapter' => \Libaro\ShipmentTracker\Adapters\DhlAdapter::class,
+            'barcode_tag' => null,
+            'credentials' => [
+                'api_key' => env('SHIPMENT_TRACKER_DHL_API_KEY'),
+                'api_secret' => env('SHIPMENT_TRACKER_DHL_API_SECRET')
             ],
         ],
     ],
@@ -53,6 +62,7 @@ return [
 ```
 
 ## Usage
+
 You can use the `Shipment` facade to track your parcel.
 
 ```php
