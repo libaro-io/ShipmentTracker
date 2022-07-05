@@ -13,7 +13,7 @@ class ProviderService
         $providerObject = null;
 
         foreach ($providers as $provider) {
-            if($provider['name'] === $name) {
+            if ($provider['name'] === $name) {
                 $providerObject = self::makeProvider($provider);
             }
         }

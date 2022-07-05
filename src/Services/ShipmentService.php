@@ -36,7 +36,7 @@ class ShipmentService
             $provider = ProviderService::getProviderByBarcode($barcode);
         }
 
-        if (!$provider) {
+        if (! $provider) {
             throw new ProviderNotFoundException("No provider found for barcode: $barcode");
         }
 
@@ -48,7 +48,7 @@ class ShipmentService
      */
     private function getAdapter(Provider $provider)
     {
-        if (!class_exists($provider->adapter)) {
+        if (! class_exists($provider->adapter)) {
             throw new AdapterNotFoundException("No adapter found for provider $provider->label ($provider->adapter)");
         }
 
