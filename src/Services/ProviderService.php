@@ -6,6 +6,21 @@ use Libaro\ShipmentTracker\Models\Provider;
 
 class ProviderService
 {
+    public static function getProviderByName(string $name): ?Provider
+    {
+        $providers = self::getProviders();
+
+        $providerObject = null;
+
+        foreach ($providers as $provider) {
+            if($provider['name'] === $name) {
+                $providerObject = self::makeProvider($provider);
+            }
+        }
+
+        return $providerObject;
+    }
+
     public static function getProviderByBarcode(string $barcode): ?Provider
     {
         $providers = self::getProviders();
