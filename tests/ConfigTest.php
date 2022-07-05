@@ -1,8 +1,16 @@
 <?php
 
-it('has an array of providers', function () {
-    $providers = config('shipment-tracker.providers');
+namespace Libaro\ShipmentTracker\Tests;
 
-    expect($providers)->toBeArray();
-    expect(count($providers))->toBeGreaterThan(0);
-});
+use Illuminate\Support\Facades\Config;
+
+final class ConfigTest extends TestCase
+{
+    public function test_is_has_an_array_of_providers()
+    {
+        $providers = Config::get('shipment-tracker.providers');
+
+        $this->assertIsArray($providers);
+        $this->assertGreaterThan(0, count($providers));
+    }
+}

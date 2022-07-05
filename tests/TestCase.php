@@ -3,9 +3,8 @@
 namespace Libaro\ShipmentTracker\Tests;
 
 use Libaro\ShipmentTracker\ShipmentTrackerServiceProvider;
-use Orchestra\Testbench\TestCase as Orchestra;
 
-class TestCase extends Orchestra
+class TestCase extends \Orchestra\Testbench\TestCase
 {
     protected function setUp(): void
     {
