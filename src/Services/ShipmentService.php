@@ -10,13 +10,15 @@ use Libaro\ShipmentTracker\Models\Status;
 class ShipmentService
 {
     /**
-     * @throws ProviderNotFoundException
-     * @throws AdapterNotFoundException
      * @param string $barcode
+     * @param null $providerName
+     * @return Status
+     * @throws AdapterNotFoundException
+     * @throws ProviderNotFoundException
      */
-    public function track(string $barcode): Status
+    public function track(string $barcode, $providerName = null): Status
     {
-        $provider = $this->getProvider($barcode);
+        $provider = $this->getProvider($barcode, $providerName);
 
         $adapter = $this->getAdapter($provider);
 
@@ -26,11 +28,15 @@ class ShipmentService
     /**
      * @throws ProviderNotFoundException
      */
-    private function getProvider(string $barcode): Provider
+    private function getProvider(string $barcode, $providerName): Provider
     {
-        $provider = ProviderService::getProviderByBarcode($barcode);
+        if ($providerName) {
+            $provider = ProviderService::getProviderByName($providerName);
+        } else {
+            $provider = ProviderService::getProviderByBarcode($barcode);
+        }
 
-        if (! $provider) {
+        if (!$provider) {
             throw new ProviderNotFoundException("No provider found for barcode: $barcode");
         }
 
@@ -42,7 +48,7 @@ class ShipmentService
      */
     private function getAdapter(Provider $provider)
     {
-        if (! class_exists($provider->adapter)) {
+        if (!class_exists($provider->adapter)) {
             throw new AdapterNotFoundException("No adapter found for provider $provider->label ($provider->adapter)");
         }
 
