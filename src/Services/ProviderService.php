@@ -35,8 +35,8 @@ class ProviderService
     {
         $providers = config('shipment-tracker.providers');
 
-        return array_filter($providers, function($provider) {
-           return $provider['enabled'];
+        return array_filter($providers, function ($provider) {
+            return $provider['enabled'];
         });
     }
 }
