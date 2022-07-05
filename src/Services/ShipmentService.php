@@ -17,6 +17,7 @@ class ShipmentService
     public function track(string $barcode): Status
     {
         $provider = $this->getProvider($barcode);
+
         $adapter = $this->getAdapter($provider);
 
         return $adapter->track($provider, $barcode);
@@ -27,12 +28,10 @@ class ShipmentService
      */
     private function getProvider(string $barcode): Provider
     {
-        $tag = substr($barcode, 0, 4);
-
-        $provider = ProviderService::getProviderByBarcodeTag($tag);
+        $provider = ProviderService::getProviderByBarcode($barcode);
 
         if (! $provider) {
-            throw new ProviderNotFoundException("No provider found for barcode beginning with $tag");
+            throw new ProviderNotFoundException("No provider found for barcode: $barcode");
         }
 
         return $provider;

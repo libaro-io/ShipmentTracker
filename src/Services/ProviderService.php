@@ -6,15 +6,17 @@ use Libaro\ShipmentTracker\Models\Provider;
 
 class ProviderService
 {
-    public static function getProviderByBarcodeTag(int $tag): ?Provider
+    public static function getProviderByBarcode(string $barcode): ?Provider
     {
         $providers = self::getProviders();
 
         $providerObject = null;
 
         foreach ($providers as $provider) {
-            if ($provider['barcode_tag'] === $tag) {
-                $providerObject = self::makeProvider($provider);
+            foreach ($provider['barcode_tags'] as $tag) {
+                if (str_starts_with($barcode, $tag)) {
+                    $providerObject = self::makeProvider($provider);
+                }
             }
         }
 
@@ -27,7 +29,7 @@ class ProviderService
             ->name($provider['name'])
             ->label($provider['label'])
             ->adapter($provider['adapter'])
-            ->barcodeTag($provider['barcode_tag'])
+            ->barcodeTags($provider['barcode_tags'])
             ->credentials($provider['credentials']);
     }
 

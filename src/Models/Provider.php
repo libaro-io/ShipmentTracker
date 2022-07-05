@@ -7,7 +7,7 @@ class Provider
     public string $name;
     public string $label;
     public string $adapter;
-    public int $barcodeTag;
+    public array $barcodeTags;
     public array $credentials;
 
     public function name(string $name): Provider
@@ -31,9 +31,9 @@ class Provider
         return $this;
     }
 
-    public function barcodeTag(int $barcodeTag): Provider
+    public function barcodeTags(array $barcodeTags): Provider
     {
-        $this->barcodeTag = $barcodeTag;
+        $this->barcodeTags = $barcodeTags;
 
         return $this;
     }
