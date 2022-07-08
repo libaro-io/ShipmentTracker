@@ -15,7 +15,7 @@ class ProviderService
      */
     public static function getProviderByName(string $name): ?Provider
     {
-        return self::getProviders()->first(function($provider) use ($name) {
+        return self::getProviders()->first(function ($provider) use ($name) {
             return $provider->name === $name;
         });
     }
@@ -28,7 +28,7 @@ class ProviderService
      */
     public static function getProviderByBarcode(string $barcode): ?Provider
     {
-        return self::getProviders()->first(function($provider) use ($barcode) {
+        return self::getProviders()->first(function ($provider) use ($barcode) {
             $confirms = false;
             foreach ($provider->barcodeTags as $tag) {
                 if (str_starts_with($barcode, $tag)) {
@@ -70,7 +70,7 @@ class ProviderService
         $collection = new Collection();
 
         foreach ($providers as $provider) {
-            if($provider['enabled']) {
+            if ($provider['enabled']) {
                 $collection->add(self::makeProvider($provider));
             }
         }
@@ -90,12 +90,12 @@ class ProviderService
 
         $results = [];
 
-        foreach($providers as $provider) {
-            if($provider['enabled']) {
+        foreach ($providers as $provider) {
+            if ($provider['enabled']) {
                 $results[] = [
                     'name' => $provider['name'],
                     'label' => $provider['label'],
-                    'barcode_tags' => $provider['barcode_tags']
+                    'barcode_tags' => $provider['barcode_tags'],
                 ];
             }
         }
