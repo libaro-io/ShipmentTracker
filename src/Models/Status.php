@@ -11,6 +11,8 @@ use Illuminate\Support\Carbon;
  * @property string $service
  * @property Carbon $updated
  * @property string $status
+ * @property string $from
+ * @property string $to
  */
 class Status
 {
@@ -93,6 +95,32 @@ class Status
     public function info(string $info): Status
     {
         $this->info = $info;
+
+        return $this;
+    }
+
+    /**
+     * A string representing the from address
+     *
+     * @param string $from
+     * @return $this
+     */
+    public function from(string $from): Status
+    {
+        $this->from = $from;
+
+        return $this;
+    }
+
+    /**
+     * A string representing the to address
+     *
+     * @param string $to
+     * @return $this
+     */
+    public function to(string $to): Status
+    {
+        $this->to = $to;
 
         return $this;
     }
