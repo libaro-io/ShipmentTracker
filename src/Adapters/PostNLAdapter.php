@@ -54,7 +54,7 @@ class PostNLAdapter implements ShipmentAdapter
     {
         $result = json_decode((string)$body);
 
-        if($result->Warnings) {
+        if ($result->Warnings) {
             throw new TrackException();
         }
 
@@ -95,7 +95,7 @@ class PostNLAdapter implements ShipmentAdapter
 
     protected function getAddress($address): string
     {
-        $addressString  = "$address->FirstName $address->LastName, ";
+        $addressString = "$address->FirstName $address->LastName, ";
         $addressString .= "$address->Street $address->HouseNumber, ";
         $addressString .= "$address->Zipcode $address->City $address->CountryCode";
 
