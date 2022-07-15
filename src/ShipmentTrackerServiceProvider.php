@@ -11,12 +11,12 @@ class ShipmentTrackerServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../config/shipment-tracker.php' => config_path('shipment-tracker.php'),
-        ], 'shipment-tracker-config');
+        ], 'shipment-tracker');
     }
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/shipment-tracker.php', 'shipment-tracker-config');
+        $this->mergeConfigFrom(__DIR__ . '/../config/shipment-tracker.php', 'shipment-tracker');
         $this->app->bind('shipment', function ($app) {
             return new ShipmentService();
         });

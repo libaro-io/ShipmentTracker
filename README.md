@@ -21,7 +21,7 @@ composer require libaro/shipmenttracker
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="shipment-tracker-config"
+php artisan vendor:publish --tag="shipment-tracker"
 ```
 
 This is the contents of the published config file:
