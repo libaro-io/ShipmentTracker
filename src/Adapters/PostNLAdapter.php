@@ -2,7 +2,9 @@
 
 namespace Libaro\ShipmentTracker\Adapters;
 
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
@@ -10,13 +12,14 @@ use Libaro\ShipmentTracker\Contracts\ShipmentAdapter;
 use Libaro\ShipmentTracker\Exceptions\TrackException;
 use Libaro\ShipmentTracker\Models\Provider;
 use Libaro\ShipmentTracker\Models\Status;
+use Psr\Http\Message\ResponseInterface;
 
 class PostNLAdapter implements ShipmentAdapter
 {
     private Provider $provider;
 
     /**
-     * @throws TrackException
+     * @throws TrackException|GuzzleException
      */
     public function track(Provider $provider, string $barCode): Status
     {
@@ -25,17 +28,20 @@ class PostNLAdapter implements ShipmentAdapter
         try {
             $response = $this->makeRequest($provider, $barCode);
 
-            if ($response->getStatusCode() != 200) {
+            if ($response->getStatusCode() !== 200) {
                 throw new TrackException();
             }
 
             return $this->convertToStatus($response->getBody());
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new TrackException("Could not track $barCode with provider PostNL");
         }
     }
 
-    protected function makeRequest(Provider $provider, string $barCode)
+    /**
+     * @throws GuzzleException
+     */
+    protected function makeRequest(Provider $provider, string $barCode): ResponseInterface
     {
         $url = $this->getEndpoint() . $barCode;
 
@@ -50,9 +56,13 @@ class PostNLAdapter implements ShipmentAdapter
         return $client->send($request);
     }
 
-    protected function convertToStatus($body)
+    /**
+     * @throws TrackException
+     * @throws \JsonException
+     */
+    protected function convertToStatus($body): Status
     {
-        $result = json_decode((string)$body);
+        $result = json_decode((string)$body, false, 512, JSON_THROW_ON_ERROR);
 
         if ($result->Warnings) {
             throw new TrackException();

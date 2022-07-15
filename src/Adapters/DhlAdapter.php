@@ -25,7 +25,7 @@ class DhlAdapter implements ShipmentAdapter
         try {
             $response = $this->makeRequest($barCode);
 
-            if ($response->getStatusCode() != 200) {
+            if ($response->getStatusCode() !== 200) {
                 throw new TrackException();
             }
 
@@ -49,9 +49,12 @@ class DhlAdapter implements ShipmentAdapter
         return $client->send($request);
     }
 
+    /**
+     * @throws \JsonException
+     */
     protected function convertToStatus($body): Status
     {
-        $result = json_decode((string) $body);
+        $result = json_decode((string)$body, false, 512, JSON_THROW_ON_ERROR);
         $shipment = $result->shipments[0];
 
         return (new Status())

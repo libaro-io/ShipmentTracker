@@ -75,7 +75,7 @@ class ProviderService
             }
         }
 
-        return  $collection;
+        return $collection;
     }
 
     /**

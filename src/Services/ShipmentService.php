@@ -20,9 +20,7 @@ class ShipmentService
     {
         $provider = $this->getProvider($barcode, $providerName);
 
-        $adapter = $this->getAdapter($provider);
-
-        return $adapter->track($provider, $barcode);
+        return $this->getAdapter($provider)->track($provider, $barcode);
     }
 
     /**
@@ -36,7 +34,7 @@ class ShipmentService
             $provider = ProviderService::getProviderByBarcode($barcode);
         }
 
-        if (! $provider) {
+        if (!$provider) {
             throw new ProviderNotFoundException("No provider found for barcode: $barcode");
         }
 
@@ -48,7 +46,7 @@ class ShipmentService
      */
     private function getAdapter(Provider $provider)
     {
-        if (! class_exists($provider->adapter)) {
+        if (!class_exists($provider->adapter)) {
             throw new AdapterNotFoundException("No adapter found for provider $provider->label ($provider->adapter)");
         }
 
