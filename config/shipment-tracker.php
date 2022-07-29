@@ -28,7 +28,7 @@ return [
             'name' => 'dhl',
             'label' => 'DHL',
             'adapter' => \Libaro\ShipmentTracker\Adapters\DhlAdapter::class,
-            'barcode_tags' => ['JVGL', '(J)VGL', 'JJD', '(J)JD'],
+            'barcode_tags' => ['000', 'JJD01', 'JJD00', 'JJD', 'JVGL', 'GM', 'LX', 'RX', '3S'],
             'credentials' => [
                 'api_key' => env('SHIPMENT_TRACKER_DHL_API_KEY'),
                 'api_secret' => env('SHIPMENT_TRACKER_DHL_API_SECRET')
