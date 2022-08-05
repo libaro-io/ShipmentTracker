@@ -2,27 +2,27 @@
 
 namespace Libaro\ShipmentTracker\Services;
 
+use Libaro\ShipmentTracker\Builders\TrackingBuilder;
 use Libaro\ShipmentTracker\Exceptions\AdapterNotFoundException;
 use Libaro\ShipmentTracker\Exceptions\ProviderNotFoundException;
 use Libaro\ShipmentTracker\Models\Provider;
-use Libaro\ShipmentTracker\Models\Status;
 
 class ShipmentService
 {
     /**
      * @param string $barcode
-     * @param null $providerName
-     * @return Status
+     * @param ?string $providerName
+     * @return TrackingBuilder
      * @throws AdapterNotFoundException
      * @throws ProviderNotFoundException
      */
-    public function track(string $barcode, $providerName = null): Status
+    public function trackingCode(string $barcode, ?string $providerName = null): TrackingBuilder
     {
         $provider = $this->getProvider($barcode, $providerName);
 
         $adapter = $this->getAdapter($provider);
 
-        return $adapter->track($provider, $barcode);
+        return new TrackingBuilder($adapter, $barcode);
     }
 
     /**
@@ -52,6 +52,6 @@ class ShipmentService
             throw new AdapterNotFoundException("No adapter found for provider $provider->label ($provider->adapter)");
         }
 
-        return new $provider->adapter();
+        return new $provider->adapter($provider);
     }
 }

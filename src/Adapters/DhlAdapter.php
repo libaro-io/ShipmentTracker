@@ -9,21 +9,25 @@ use Libaro\ShipmentTracker\Contracts\ShipmentAdapter;
 use Libaro\ShipmentTracker\Exceptions\TrackException;
 use Libaro\ShipmentTracker\Models\Provider;
 use Libaro\ShipmentTracker\Models\Status;
+use Libaro\ShipmentTracker\Models\TrackingOptions;
 use Psr\Http\Message\ResponseInterface;
 
 class DhlAdapter implements ShipmentAdapter
 {
     private Provider $provider;
 
+    public function __construct(Provider $provider)
+    {
+        $this->provider = $provider;
+    }
+
     /**
      * @throws TrackException
      */
-    public function track(Provider $provider, string $barCode): Status
+    public function track(TrackingOptions $trackingOptions): Status
     {
-        $this->provider = $provider;
-
         try {
-            $response = $this->makeRequest($barCode);
+            $response = $this->makeRequest($trackingOptions->getTrackingCode(), $trackingOptions->getZipCode());
 
             if ($response->getStatusCode() != 200) {
                 throw new TrackException();
@@ -31,13 +35,13 @@ class DhlAdapter implements ShipmentAdapter
 
             return $this->convertToStatus($response->getBody());
         } catch (\Exception $e) {
-            throw new TrackException("Could not track $barCode with provider DHL");
+            throw new TrackException("Could not track {$trackingOptions->getTrackingCode()} with provider DHL");
         }
     }
 
-    protected function makeRequest(string $barCode): ResponseInterface
+    protected function makeRequest(string $barCode, $zipCode): ResponseInterface
     {
-        $url = "https://api-eu.dhl.com/track/shipments?trackingNumber=$barCode";
+        $url = "https://api-eu.dhl.com/track/shipments?trackingNumber=$barCode" . ($zipCode ? '&recipientPostalCode='.$zipCode : '');
 
         $credentials = $this->provider->credentials;
 
@@ -60,6 +64,7 @@ class DhlAdapter implements ShipmentAdapter
             ->service($shipment->service)
             ->updated($this->convertToDate($shipment->status->timestamp))
             ->status($shipment->status->status)
+            ->receiver($shipment->details->receiver->name ?? '')
             ->info(optional($shipment->status)->description ?? '');
     }
 

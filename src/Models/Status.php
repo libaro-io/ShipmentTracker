@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
  * @property string $service
  * @property Carbon $updated
  * @property string $status
+ * @property string $receiver
  * @property string $from
  * @property string $to
  */
@@ -80,6 +81,20 @@ class Status
     public function status(string $status): Status
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Who is the receiver of the parcel.
+     * Examples: full name of the person or company
+     *
+     * @param string $receiver
+     * @return $this
+     */
+    public function receiver(string $receiver): Status
+    {
+        $this->receiver = $receiver;
 
         return $this;
     }
