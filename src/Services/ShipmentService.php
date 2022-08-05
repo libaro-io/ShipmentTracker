@@ -6,7 +6,6 @@ use Libaro\ShipmentTracker\Builders\TrackingBuilder;
 use Libaro\ShipmentTracker\Exceptions\AdapterNotFoundException;
 use Libaro\ShipmentTracker\Exceptions\ProviderNotFoundException;
 use Libaro\ShipmentTracker\Models\Provider;
-use Libaro\ShipmentTracker\Models\Status;
 
 class ShipmentService
 {

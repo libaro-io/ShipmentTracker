@@ -26,7 +26,6 @@ class PostNLAdapter implements ShipmentAdapter
      */
     public function track(TrackingOptions $trackingOptions): Status
     {
-
         try {
             $response = $this->makeRequest($trackingOptions->getTrackingCode());
 

@@ -12,7 +12,6 @@ use Libaro\ShipmentTracker\Models\TrackingOptions;
 
 class BPostAdapter implements ShipmentAdapter
 {
-
     private Provider $provider;
 
     public function __construct(Provider $provider)

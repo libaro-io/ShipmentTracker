@@ -8,7 +8,6 @@ use Libaro\ShipmentTracker\Models\TrackingOptions;
 
 class TrackingBuilder
 {
-
     private TrackingOptions $trackingOptions;
     private ShipmentAdapter $shipmentAdapter;
 
