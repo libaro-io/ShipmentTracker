@@ -10,20 +10,25 @@ use Libaro\ShipmentTracker\Contracts\ShipmentAdapter;
 use Libaro\ShipmentTracker\Exceptions\TrackException;
 use Libaro\ShipmentTracker\Models\Provider;
 use Libaro\ShipmentTracker\Models\Status;
+use Libaro\ShipmentTracker\Models\TrackingOptions;
 
 class PostNLAdapter implements ShipmentAdapter
 {
     private Provider $provider;
 
+    public function __construct(Provider $provider)
+    {
+        $this->provider = $provider;
+    }
+
     /**
      * @throws TrackException
      */
-    public function track(Provider $provider, string $barCode): Status
+    public function track(TrackingOptions $trackingOptions): Status
     {
-        $this->provider = $provider;
 
         try {
-            $response = $this->makeRequest($provider, $barCode);
+            $response = $this->makeRequest($trackingOptions->getTrackingCode());
 
             if ($response->getStatusCode() != 200) {
                 throw new TrackException();
@@ -31,15 +36,15 @@ class PostNLAdapter implements ShipmentAdapter
 
             return $this->convertToStatus($response->getBody());
         } catch (\Exception $e) {
-            throw new TrackException("Could not track $barCode with provider PostNL");
+            throw new TrackException("Could not track {$trackingOptions->getTrackingCode()} with provider PostNL");
         }
     }
 
-    protected function makeRequest(Provider $provider, string $barCode)
+    protected function makeRequest(string $barCode)
     {
         $url = $this->getEndpoint() . $barCode;
 
-        $credentials = $provider->credentials;
+        $credentials = $this->provider->credentials;
 
         $client = new Client();
         $request = new Request('GET', $url, [

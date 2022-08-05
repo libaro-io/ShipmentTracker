@@ -66,7 +66,14 @@ return [
 You can use the `Shipment` facade to track your parcel.
 
 ```php
-Shipment::track('5995390550944994')
+//simple approach with automatic detection of provider
+Shipment::trackingCode('5995390550944994')->track()
+
+//defined approach with manual insertion of provider
+Shipment::trackingCode('5995390550944994', ShipmentProviders::DHL)->track()
+
+//optionals to have more parcel information (only for DHL) 
+Shipment::trackingCode('5995390550944994')->zipcode(1234)->track()
 ```
 
 ## Testing

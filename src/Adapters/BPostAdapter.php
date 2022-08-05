@@ -8,16 +8,25 @@ use Libaro\ShipmentTracker\Contracts\ShipmentAdapter;
 use Libaro\ShipmentTracker\Exceptions\TrackException;
 use Libaro\ShipmentTracker\Models\Provider;
 use Libaro\ShipmentTracker\Models\Status;
+use Libaro\ShipmentTracker\Models\TrackingOptions;
 
 class BPostAdapter implements ShipmentAdapter
 {
+
+    private Provider $provider;
+
+    public function __construct(Provider $provider)
+    {
+        $this->provider = $provider;
+    }
+
     /**
      * @throws TrackException
      */
-    public function track(Provider $provider, string $barCode): Status
+    public function track(TrackingOptions $trackingOptions): Status
     {
         try {
-            $response = $this->makeRequest($provider, $barCode);
+            $response = $this->makeRequest($trackingOptions->getTrackingCode());
 
             if ($response->getStatusCode() != 200) {
                 throw new TrackException();
@@ -25,15 +34,15 @@ class BPostAdapter implements ShipmentAdapter
 
             return $this->convertToStatus($response->getBody());
         } catch (\Exception $e) {
-            throw new TrackException("Could not track $barCode with provider BPost");
+            throw new TrackException("Could not track {$trackingOptions->getTrackingCode()} with provider BPost");
         }
     }
 
-    protected function makeRequest(Provider $provider, string $barCode)
+    protected function makeRequest(string $barCode)
     {
         $url = "https://api-parcel.bpost.be/services/trackedmail/$barCode/trackingInfo";
 
-        $credentials = $provider->credentials;
+        $credentials = $this->provider->credentials;
 
         $client = new Client();
         $request = new Request('GET', $url, [
